@@ -19,10 +19,11 @@ namespace SinglyLinkedLists
             set { throw new NotImplementedException(); }
         }
 
-        private string value;
+        private string value; // same as this.value we can't call it because it is private.
+        //Value is a property!! fix the getter. a property allows for uses outside of the class.
         public string Value 
         {
-            get { throw new NotImplementedException(); }
+            get { return value; }
         }
 
         public static bool operator <(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
@@ -37,9 +38,10 @@ namespace SinglyLinkedLists
             return node1.CompareTo(node2) > 0;
         }
 
-        public SinglyLinkedListNode(string value)
+        public SinglyLinkedListNode(string value) //a constructor that receives input, could name value input
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
+            this.value = value;
 
             // Used by the visualizer:
             allNodes.Add(this);
