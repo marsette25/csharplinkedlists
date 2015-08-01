@@ -17,10 +17,12 @@ namespace SinglyLinkedLists
         {
             get { return next; }
             set {
-                if (value.Equals(this)){
+                if (this == value || value == null)
+                {
                     throw new ArgumentException();
                 }
-                this.next = value; }
+                this.next = value;
+            }
         }
 
         private string value; // same as this.value we can't call it because it is private.
@@ -43,19 +45,7 @@ namespace SinglyLinkedLists
             return node1.CompareTo(node2) > 0;
         }
 
-        public static bool operator ==(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
-        {
-            return node1.CompareTo(node2) == 0;
-        }
-
-        public static bool operator !=(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
-        { 
-            /* the long way
-            return node1.CompareTo(node2) != 0;
-            */
-            return !(node1 == node2);
-        }
-
+        
 
         public SinglyLinkedListNode(string input) //a constructor that receives input, could name value input
         {
@@ -73,17 +63,18 @@ namespace SinglyLinkedLists
         public int CompareTo(Object obj)
         {
             SinglyLinkedListNode other_node = obj as SinglyLinkedListNode;
-            if(this.value == other_node.Value)
-           {
-                return 0;
-            }
-            return 1;
-           /* else
+            return other_node == null ? 1 : this.value.CompareTo(other_node.Value);
+            /*
+            if (other_node == null)
             {
-                throw new NotImplementedException();
+                return 1;
+            } else
+            {
+                return this.value.CompareTo(other_node.Value);
             }
+            */
         }
-
+        
         public bool IsLast()
         {
             /* this makes the test pass
@@ -105,11 +96,18 @@ namespace SinglyLinkedLists
                 */
             return this.next == null;
             
-        }
+       }
 
         public override string ToString()
         {
             return this.value;
+        }
+
+        public override bool Equals(object obj)
+        {
+           {
+                return this.CompareTo(obj) == 0;
+            }
         }
     }
 }
