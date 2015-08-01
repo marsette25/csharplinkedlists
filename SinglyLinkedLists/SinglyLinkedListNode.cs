@@ -15,8 +15,12 @@ namespace SinglyLinkedLists
         private SinglyLinkedListNode next;
         public SinglyLinkedListNode Next
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get { return next; }
+            set {
+                if (value.Equals(this)){
+                    throw new ArgumentException();
+                }
+                this.next = value; }
         }
 
         private string value; // same as this.value we can't call it because it is private.
@@ -30,6 +34,7 @@ namespace SinglyLinkedLists
         {
             // This implementation is provided for your convenience.
             return node1.CompareTo(node2) < 0;
+            
         }
 
         public static bool operator >(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
@@ -38,10 +43,27 @@ namespace SinglyLinkedLists
             return node1.CompareTo(node2) > 0;
         }
 
-        public SinglyLinkedListNode(string value) //a constructor that receives input, could name value input
+        public static bool operator ==(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
+        {
+            return node1.CompareTo(node2) == 0;
+        }
+
+        public static bool operator !=(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
+        { 
+            /* the long way
+            return node1.CompareTo(node2) != 0;
+            */
+            return !(node1 == node2);
+        }
+
+
+        public SinglyLinkedListNode(string input) //a constructor that receives input, could name value input
         {
             // throw new NotImplementedException();
-            this.value = value;
+            this.value = input;
+
+            //Undeclared data members default to null, but...
+            this.next = null;
 
             // Used by the visualizer:
             allNodes.Add(this);
@@ -50,12 +72,44 @@ namespace SinglyLinkedLists
         // READ: http://msdn.microsoft.com/en-us/library/system.icomparable.compareto.aspx
         public int CompareTo(Object obj)
         {
-            throw new NotImplementedException();
+            SinglyLinkedListNode other_node = obj as SinglyLinkedListNode;
+            if(this.value == other_node.Value)
+           {
+                return 0;
+            }
+            return 1;
+           /* else
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public bool IsLast()
         {
-            throw new NotImplementedException();
+            /* this makes the test pass
+            if (this.next == null) 
+            {
+                return true;
+
+            } else
+            {
+                return false;
+            }
+            */
+            /*refactor 1: no else statement
+            if (this.next == null) 
+            {
+                return true;
+            }
+                return false;
+                */
+            return this.next == null;
+            
+        }
+
+        public override string ToString()
+        {
+            return this.value;
         }
     }
 }
