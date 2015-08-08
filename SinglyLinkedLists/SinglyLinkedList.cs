@@ -161,5 +161,27 @@ namespace SinglyLinkedLists
         {
             throw new NotImplementedException();
         }
+
+
+
+        public override string ToString()
+        {
+            StringBuilder MyStringBuilder = new StringBuilder();
+            MyStringBuilder.Append ("{ ");
+            if(this.Count() == 1 || this.count() == 0) 
+            {
+                while(first_node != null)
+                MyStringBuilder.Append("\"").Append(node.Value).Append("\" ").ToString();
+            }
+
+            MyStringBuilder.Append('}');
+            return MyStringBuilder.ToString();
+        } 
+
+
+
+
     }
 }
+
+
