@@ -159,28 +159,57 @@ namespace SinglyLinkedLists
 
         public string[] ToArray()
         {
-            throw new NotImplementedException();
-        }
+           
+            string[] newArray = new string[this.Count()];
+            string[] emptyArray = new string[] { };
+            var node = first_node;
+
+            if (this.Count() == 0) { return emptyArray; }
+
+            else
+            {
+                for (int i = 0;  i < this.Count(); i++) 
+                {
+                    newArray[i] = node.Value;
+                    node = node.Next;
+                }
+            }
+
+            return newArray.ToArray();  
+           
+ }
 
 
 
         public override string ToString()
         {
             StringBuilder MyStringBuilder = new StringBuilder();
-            MyStringBuilder.Append ("{ ");
-            if(this.Count() == 1 || this.count() == 0) 
+            var node = first_node;
+
+            MyStringBuilder.Append("{ ");
+
+            if (this.Count() == 1 || this.Count() == 0)
             {
-                while(first_node != null)
-                MyStringBuilder.Append("\"").Append(node.Value).Append("\" ").ToString();
+                while (node != null)
+                {
+
+                    MyStringBuilder.Append("\"").Append(node.Value).Append("\" ").ToString();
+                    node = node.Next;
+                }
+                MyStringBuilder.Append('}');
+            } else
+            {
+                while (!node.IsLast())
+                {
+                    MyStringBuilder.Append("\"").Append(node.Value).Append("\", ").ToString();
+                    node = node.Next;
+                }
+                MyStringBuilder.Append("\"").Append(this.Last()).Append("\" }").ToString();
+
             }
-
-            MyStringBuilder.Append('}');
+           // MyStringBuilder.Append('}');
             return MyStringBuilder.ToString();
-        } 
-
-
-
-
+        }
     }
 }
 
