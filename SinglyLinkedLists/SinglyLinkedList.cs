@@ -8,7 +8,9 @@ namespace SinglyLinkedLists
     public class SinglyLinkedList
     {
         private SinglyLinkedListNode first_node;
+        private int listLength = 0;
         public SinglyLinkedList()
+        
         {
             // NOTE: This constructor isn't necessary, once you've implemented the constructor below.
         }
@@ -16,24 +18,87 @@ namespace SinglyLinkedLists
         // READ: http://msdn.microsoft.com/en-us/library/aa691335(v=vs.71).aspx
         public SinglyLinkedList(params object[] values)
         {
-            throw new NotImplementedException();
+            for(var i =0; i< values.Length; i++)
+            {
+                this.AddLast(values[i] as String);
+            }
+
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
         public string this[int i]
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
+            get { return this.ElementAt(i); }
+            set
+            {
+                var newList = new SinglyLinkedList();
 
+                for (var x = 0; x < this.Count(); x++)
+                {
+                    if (x == i)
+                    {
+                        newList.AddLast(value);
+                    }
+                    else
+                    {
+                        newList.AddLast(this.ElementAt(x));
+                    }
+                }
+                    first_node = new SinglyLinkedListNode(newList.First());
+                    for (var w = 1; w < newList.Count(); w++)
+                {
+                    this.AddLast(newList.ElementAt(w));
+
+                }
+                }
+            }
         public void AddAfter(string existingValue, string value)
         {
-            throw new NotImplementedException();
+            
+            {
+                var node = this.first_node;
+
+                while (node.Value != existingValue && node != null)
+                {
+                    node = node.Next;
+                    if (node == null)
+                    {
+                        throw new ArgumentException();
+                    }
+
+                }
+
+                if (node.IsLast() && node.Value == existingValue)
+                {
+                    this.AddLast(value);
+                    return;  
+
+                }
+    
+                var newNode = new SinglyLinkedListNode(value);
+                newNode.Next = node.Next;
+                node.Next = newNode;
+            }
         }
 
         public void AddFirst(string value)
         {
-            throw new NotImplementedException();
+            if (this.First() == null)
+            {
+                first_node = new SinglyLinkedListNode(value);
+            }
+            else
+            {
+                var newFirstNode = new SinglyLinkedListNode(value); //feeding value of new first node
+                //keeping track of rest of the list
+                var currentFirstNode = this.first_node;
+                //put newfirstnode into first position
+                this.first_node = newFirstNode;
+                //making a pointer to the rest of everything else
+                this.first_node.Next = currentFirstNode;
+
+            }
+          
         }
 
         public void AddLast(string value)
@@ -50,6 +115,7 @@ namespace SinglyLinkedLists
                 }
                 node.Next = new SinglyLinkedListNode(value);
             }
+     
         }
 
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
@@ -113,12 +179,37 @@ namespace SinglyLinkedLists
 
         public int IndexOf(string value)
         {
-            throw new NotImplementedException();
+            var node = this.first_node;
+            int index = -1;
+
+            if (this.First() == null) { return index; }
+
+            for (var i = 0; i < this.Count(); i++)
+            {
+                if (node.Value == value)
+                {
+                    index = i;
+                    break;
+                }
+                node = node.Next;
+        }
+            return index;
         }
 
         public bool IsSorted()
         {
-            throw new NotImplementedException();
+            var sorted = true;
+            var thisNode = this.first_node;
+            for (int i = 0; i < this.Count() - 1; i++)
+            {
+                if (thisNode.CompareTo(thisNode.Next) > 0)
+                {
+                    sorted = false;
+                    break;
+                }
+                thisNode = thisNode.Next;
+            }
+            return sorted;
         }
 
         // HINT 1: You can extract this functionality (finding the last item in the list) from a method you've already written!
@@ -149,14 +240,44 @@ namespace SinglyLinkedLists
 
         public void Remove(string value)
         {
-            throw new NotImplementedException();
+            int number = this.IndexOf(value);
+            var newList = new SinglyLinkedList();
+            for (var i = 0; i < this.Count(); i++)
+            {
+                if (i != number)
+                {
+                    newList.AddLast(this.ElementAt(i));
+                }
+            }
+            first_node = new SinglyLinkedListNode(newList.First());
+            for (var j = 1; j < newList.Count(); j++)
+            {
+                this.AddLast(newList.ElementAt(j));
+            }
         }
 
+        //insertion sort??? http://www.csharpens.com/2014/02/insertion-sorting-algorithm-in-c-sharp-with-example-code-of-Array.html
         public void Sort()
         {
-            throw new NotImplementedException();
+            while (!this.IsSorted())
+            {
+                var node = first_node;
+                var node2 = node.Next;
+                for (int i = 0; i < this.Count(); i++)
+                {
+                    if (node.CompareTo(node2) > 0)
+                    {
+                        var temp = node.Value;
+                        var temp2 = node2.Value;
+                        var temp3 = temp;
+                        var temp4 = temp2;
+                        
+                    }
+                    node = node.Next;
+                    node2 = node.Next;
+                }
+            }
         }
-
         public string[] ToArray()
         {
            
