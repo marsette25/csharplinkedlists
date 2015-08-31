@@ -8,7 +8,6 @@ namespace SinglyLinkedLists
     public class SinglyLinkedList
     {
         private SinglyLinkedListNode first_node;
-        private int listLength = 0;
         public SinglyLinkedList()
         
         {
@@ -261,20 +260,25 @@ namespace SinglyLinkedLists
         {
             while (!this.IsSorted())
             {
-                var node = first_node;
-                var node2 = node.Next;
-                for (int i = 0; i < this.Count(); i++)
+               SinglyLinkedListNode node = first_node;
+               SinglyLinkedListNode node2 = node.Next;
+                for (int i = 0; i < Count(); i++)
                 {
-                    if (node.CompareTo(node2) > 0)
+                    if (node.CompareTo(node2) > 0 && node2 != null)
                     {
-                        var temp = node.Value;
-                        var temp2 = node2.Value;
-                        var temp3 = temp;
-                        var temp4 = temp2;
-                        
+                       SinglyLinkedListNode temp1 = node;
+                       SinglyLinkedListNode temp2 = node2;
+                       //SinglyLinkedListNode temp3 = temp1;
+
                     }
+
                     node = node.Next;
-                    node2 = node.Next;
+                    node2 = node2.Next;
+
+                    //SinglyLinkedListNode nodeNext = node.Next;
+                    //SinglyLinkedListNode node2Next = node2.Next;
+
+
                 }
             }
         }
