@@ -9,7 +9,7 @@ namespace SinglyLinkedLists
     {
         private SinglyLinkedListNode first_node;
         public SinglyLinkedList()
-        
+
         {
             // NOTE: This constructor isn't necessary, once you've implemented the constructor below.
         }
@@ -31,6 +31,7 @@ namespace SinglyLinkedLists
             set
             {
                 var newList = new SinglyLinkedList();
+             
 
                 for (var x = 0; x < this.Count(); x++)
                 {
@@ -259,29 +260,30 @@ namespace SinglyLinkedLists
         public void Sort()
         {
             while (!this.IsSorted())
-            {
-               SinglyLinkedListNode node = first_node;
-               SinglyLinkedListNode node2 = node.Next;
-                for (int i = 0; i < Count(); i++)
+
                 {
-                    if (node.CompareTo(node2) > 0 && node2 != null)
+                    var node = first_node;
+                    var node2 = node.Next;
+
+
+                    for (int i = 1; i < this.Count(); i++)
                     {
-                       SinglyLinkedListNode temp1 = node;
-                       SinglyLinkedListNode temp2 = node2;
-                       //SinglyLinkedListNode temp3 = temp1;
+                        if (node.CompareTo(node2) > 0)
+                        {
+                        var temp = node2.Value;
+                        node2.Value = node.Value;
+                        node.Value = temp;
 
                     }
 
-                    node = node.Next;
-                    node2 = node2.Next;
+                        node = node.Next;
+                        node2 = node.Next;
 
-                    //SinglyLinkedListNode nodeNext = node.Next;
-                    //SinglyLinkedListNode node2Next = node2.Next;
-
-
+                    }
                 }
             }
-        }
+        
+        
         public string[] ToArray()
         {
            
